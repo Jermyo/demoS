@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>百度搜索下拉（功能实现）</title>
+</head>
+<body>
+    <input id="search_input" type="text" value="请输入关键词">
+    <ul id="search_result_list"></ul>
+    <script>
+        function searchResult(json){
+            var oUl = document.getElementById('search_result_list');
+            oUl.innerHTML = '';
+            var res = json.s;len = res.length;
+            for(var i=0; i<len; i++){
+                var oNewLi = document.createElement('li');
+                oNewLi.innerHTML = res[i];
+                oUl.appendChild(oNewLi);
+            }
+        }
+        window.onload = function(){
+            var oInput = document.getElementById('search_input');
+            oInput.onfocus = function(){
+                this.value = '';
+            };
+            oInput.onkeyup = function(){
+                var url = 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+this.value+'&cb=searchResult';
+                var oS = document.createElement('script');
+                oS.src = url;
+                document.head.appendChild(oS);
+            };
+        };
+    </script>
+</body>
+</html> 
